@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DetailTutorial;
 use App\Models\MasterTutorial;
 use Illuminate\Http\Request;
+use illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Session;
 
 class DetailTutorialController extends Controller
@@ -43,53 +44,42 @@ class DetailTutorialController extends Controller
                          ->with('success', 'Detail tutorial berhasil ditambahkan.');
     }
 
+    
+public function edit(MasterTutorial $MasterTutorial, DetailTutorial $DetailTutorial)
+{
+    // Menampilkan halaman edit untuk detail tutorial
+    return view('detail.edit', compact('MasterTutorial', 'DetailTutorial'));
+}
 
-    public function edit($masterTutorialId, $detailTutorialId)
-    {
-        $detail = DetailTutorial::with('master')->findOrFail($detailTutorialId);
-        return view('detail.edit', compact('detail'));
+public function update(Request $request, MasterTutorial $MasterTutorial, DetailTutorial $DetailTutorial)
+{
+    // Validasi input
+    $request->validate([
+        'text' => 'required',
+        'order' => 'required|numeric',
+        'status' => 'required|in:show,hide',
+        'gambar' => 'nullable|image|max:2048',
+    ]);
+
+    // Mengupdate data detail tutorial
+    $DetailTutorial->fill($request->except('gambar'));
+
+    if ($request->hasFile('gambar')) {
+        // Menghapus gambar lama jika ada dan menggantinya
+        if ($DetailTutorial->gambar) {
+            \Storage::delete('public/'.$DetailTutorial->gambar);
+        }
+        // Menyimpan gambar baru
+        $DetailTutorial->gambar = $request->file('gambar')->store('tutorial-images', 'public');
     }
-    
-    // Update DetailTutorial
-    public function update(Request $request, $masterTutorialId, $detailTutorialId)
-    {
-        // Validasi input form
-        $request->validate([
-            'text' => 'required|string',
-            'code' => 'required|string',
-            'order' => 'required|integer',
-            'status' => 'required|string|in:show,hide',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif',
-            'url' => 'nullable|url',
-        ]);
-    
-        // Cari DetailTutorial berdasarkan ID
-        $detailTutorial = DetailTutorial::findOrFail($detailTutorialId);
-    
-        // Update DetailTutorial dengan data dari form
-        $detailTutorial->text = $request->text;
-        $detailTutorial->code = $request->code;
-        $detailTutorial->order = $request->order;
-        $detailTutorial->status = $request->status;
-    
-        // Jika ada gambar baru, simpan gambar
-        if ($request->hasFile('gambar')) {
-            $path = $request->file('gambar')->store('public/gambar');
-            $detailTutorial->gambar = basename($path);
-        }
-    
-        // Update URL jika ada
-        if ($request->url) {
-            $detailTutorial->url = $request->url;
-        }
-    
-        // Simpan perubahan
-        $detailTutorial->save();
-    
-        // Redirect ke halaman index dengan pesan sukses
-        return redirect()->route('MasterTutorial.DetailTutorial.index', ['masterTutorial' => $masterTutorialId])
-                         ->with('success', 'Detail Tutorial berhasil diperbarui!');
-    } 
+
+    // Simpan perubahan
+    $DetailTutorial->save();
+
+    // Redirect ke halaman index dengan pesan sukses
+    return redirect()->route('MasterTutorial.DetailTutorial.index', $MasterTutorial->id)
+                     ->with('success', 'Detail tutorial berhasil diperbarui.');
+}
 
     public function destroy($id, MasterTutorial $MasterTutorial)
     {

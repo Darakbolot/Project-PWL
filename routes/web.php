@@ -17,11 +17,17 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
 //     Route::resource('MasterTutorial', MasterTutorialController::class);
 // });
 
+// routes/web.php
+
 Route::middleware(['auth.session'])->group(function () {
     Route::resource('MasterTutorial', MasterTutorialController::class);
-
     Route::resource('MasterTutorial.DetailTutorial', DetailTutorialController::class);
+
+    // Rute untuk mengedit dan memperbarui detail tutorial
+    Route::get('MasterTutorial/{MasterTutorial}/DetailTutorial/{DetailTutorial}/edit', [DetailTutorialController::class, 'edit'])->name('MasterTutorial.DetailTutorial.edit');
+    Route::put('MasterTutorial/{MasterTutorial}/DetailTutorial/{DetailTutorial}', [DetailTutorialController::class, 'update'])->name('MasterTutorial.DetailTutorial.update');
 });
+
 
 // HTTP         Verb	            URI	Aksi	Deskripsi
 // GET	        /posts	            index	    Menampilkan daftar semua post
