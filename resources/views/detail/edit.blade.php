@@ -33,7 +33,7 @@
 
       <!-- Master Tutorial -->
       <div>
-        <label for="">Master Tutorial</label><br>
+        <label for="">Judul</label><br>
         <label for="">{{ $MasterTutorial->judul }}</label>
         <input type="hidden" name="master_tutorial_id" value="{{ $MasterTutorial->id }}">
       </div>
@@ -48,9 +48,9 @@
       <div>
         <label for="gambar" class="block text-white mb-2">Gambar</label>
         @if($DetailTutorial->gambar)
-          <img src="{{ asset('storage/'.$DetailTutorial->gambar) }}" alt="Gambar" class="max-h-40 mb-4">
+          <img src="{{ asset('storage/'.$DetailTutorial->gambar) }}" alt="Gambar" class="max-h-40 mb-2">
         @endif
-        <input type="file" name="gambar" id="gambar" class="w-full p-2 rounded-lg bg-gray-50 border border-gray-300">
+        <input type="file" name="gambar" id="gambar" class="w-full p-2 rounded-lg bg-gray-50 border border-gray-300 text-black" >
       </div>
 
       <!-- Code -->

@@ -40,7 +40,7 @@
                 </select>
             </div>
 
-            <div>
+            {{-- <div>
                 <label class="block font-medium text-gray-700">URL Presentation:</label>
                 <input type="text" name="url_presentation" id="url_presentation" value="{{ old('url_presentation') }}"
                        class="mt-1 w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500">
@@ -50,7 +50,7 @@
                 <label class="block font-medium text-gray-700">URL Finished:</label>
                 <input type="text" name="url_finished" id="url_finished" value="{{ old('url_finished') }}"
                        class="mt-1 w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500">
-            </div>
+            </div> --}}
 
             <div class="text-right">
                 <button type="submit"

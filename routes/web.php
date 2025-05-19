@@ -40,7 +40,12 @@ Route::middleware(['auth.session'])->group(function () {
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/presentation/{slug}', [PresentationController::class, 'show'])->name('presentation.show');
-
 Route::delete('tutorials/{DetailTutorial}/{MasterTutorial}', [DetailTutorialController::class, 'destroy'])
     ->name('MasterTutorial.DetailTutorial.destroy');
+
+Route::get('/presentation/{slug}', [PresentationController::class, 'show'])->name('presentation.show');
+
+Route::get('/finished/{slug}', [PresentationController::class, 'finished'])->name('presentation.finished');
+Route::get('/finished/download/{slug}', [PresentationController::class, 'downloadPdf'])->name('presentation.downloadPdf');
+
+Route::get('/api/tutorials/{kode_matkul}', [\App\Http\Controllers\TutorialApiController::class, 'listByCourse']);

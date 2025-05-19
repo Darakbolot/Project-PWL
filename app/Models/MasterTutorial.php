@@ -25,4 +25,9 @@ class MasterTutorial extends Model
     {
         return $this->hasMany(DetailTutorial::class, 'master_tutorial_id');
     }
+
+        public function user()
+    {
+        return $this->belongsTo(\App\Models\User::class, 'user_id'); // Pastikan 'user_id' adalah kolom foreign key
+    }
 }

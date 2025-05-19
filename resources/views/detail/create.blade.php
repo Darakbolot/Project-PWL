@@ -23,14 +23,14 @@
         <h1 class="text-2xl font-bold text-gray-50">Tambah Detail Tutorial</h1>
 
         <!-- Optional Search -->
-        <div class="absolute right-4 lg:flex hidden items-center space-x-2 bg-white py-1 px-2 rounded-full">
+        {{-- <div class="absolute right-4 lg:flex hidden items-center space-x-2 bg-white py-1 px-2 rounded-full">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
           <input class="outline-none bg-transparent text-sm" type="text" placeholder="Search" />
         </div>
-      </div>
+      </div> --}}
     </nav>
   </header>
 
@@ -55,7 +55,7 @@
       <!-- Gambar -->
       <div>
         <label for="gambar" class="block text-white mb-2">Gambar</label>
-        <input type="file" name="gambar" id="gambar" class="w-full p-2 rounded-lg bg-gray-50 border border-gray-300">
+        <input type="file" name="gambar" id="gambar" class="w-full p-2 rounded-lg bg-gray-50 border border-gray-300 text-black">
       </div>
 
       <!-- Code -->

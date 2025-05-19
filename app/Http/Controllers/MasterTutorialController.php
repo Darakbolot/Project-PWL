@@ -28,8 +28,8 @@ class MasterTutorialController extends Controller
         $request->validate([
             'judul' => 'required|string|max:255',
             'kode_matkul' => 'required|string',
-            'url_presentation' => 'required|url|unique:master_tutorials,url_presentation',
-            'url_finished' => 'required|url|unique:master_tutorials,url_finished',
+            'url_presentation' => 'url|unique:master_tutorials,url_presentation',
+            'url_finished' => 'url|unique:master_tutorials,url_finished',
         ]);
 
         $slug = Str::slug($request->judul); // buat slug dari judul
